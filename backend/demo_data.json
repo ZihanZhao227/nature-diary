@@ -11,7 +11,23 @@
     "longitude": 135.7681,
     "altitude_m": 180,
     "datetime": "2025-10-15T14:30:00",
-    "user_feeling": "First time seeing autumn colors in Kyoto with friends."
+    "user_feeling": "First time seeing autumn colors in Kyoto with friends.",
+    "taxonomy": {
+      "kingdom": "Plantae",
+      "phylum": "Tracheophyta",
+      "class_name": "Magnoliopsida",
+      "order": "Sapindales",
+      "family": "Sapindaceae",
+      "genus": "Acer",
+      "species": "Acer palmatum"
+    },
+    "encyclopedia": {
+      "summary": "A small deciduous tree valued for delicate leaves and intense autumn colors.",
+      "native_range": "Japan",
+      "uses": "Garden ornamentals, bonsai, temple gardens.",
+      "edible": false,
+      "ecology": "Often grows as an understory tree in temperate broadleaf forests."
+    }
   },
   {
     "id": "obs-2",
@@ -25,7 +41,23 @@
     "longitude": 167.718,
     "altitude_m": 250,
     "datetime": "2025-06-18T10:15:00",
-    "user_feeling": "Cool, damp forest with deep green ferns everywhere."
+    "user_feeling": "Cool, damp forest with deep green ferns everywhere.",
+    "taxonomy": {
+      "kingdom": "Plantae",
+      "phylum": "Polypodiophyta",
+      "class_name": "Polypodiopsida",
+      "order": "Polypodiales",
+      "family": "Dryopteridaceae",
+      "genus": "Unknown fern genus",
+      "species": "Unspecified forest fern"
+    },
+    "encyclopedia": {
+      "summary": "Typical temperate rainforest fern forming lush green understory layers.",
+      "native_range": "Temperate rainforests of New Zealand",
+      "uses": "Mostly ornamental and ecological; provides habitat and moisture retention.",
+      "edible": false,
+      "ecology": "Helps keep the forest floor humid and creates shelter for invertebrates."
+    }
   },
   {
     "id": "obs-3",
@@ -39,6 +71,12 @@
     "longitude": 8.158,
     "altitude_m": 2100,
     "datetime": "2025-09-03T08:45:00",
-    "user_feeling": "Cold air, long hike, but the view over the clouds was worth it."
+    "user_feeling": "Cold air, long hike, but the view over the clouds was worth it.",
+    "geology": {
+      "formation_type": "Glacial valley and mountain lake",
+      "age": "Quaternary",
+      "process": "Carved by valley glaciers and later filled by meltwater.",
+      "mountain_range": "Alps"
+    }
   }
 ]
