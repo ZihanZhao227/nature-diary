@@ -93,4 +93,81 @@ Encyclopedia information for landscapes:
 
 ### 3.5 Place, Country, Badge (planned)
 
-For the first demo, place/country/badge logic is kept simple and can b
+For the first demo, place/country/badge logic is kept simple and can be represented as
+either:
+
+- separate dataclasses, or
+- structured dictionaries inside `demo_data.json`.
+
+Conceptually:
+
+- **Place**: a specific park or trail; used in the Map → country detail screens.  
+- **Country**: aggregates places and statistics (number of parks, classic trails, etc.).  
+- **Badge**: achievements unlocked by altitude, number of species, number of countries, etc.
+
+---
+
+## 4. Demo behaviour (Streamlit app)
+
+`app/app.py` will gradually implement the following flows:
+
+1. **Gallery**
+   - Load observations from `backend/demo_data.json`.
+   - Provide filters by type (all / plants / animals / landscapes).
+   - Optional sorting by time (newest first).
+   - Display a list of cards; clicking a card opens the detail panel.
+
+2. **Observation detail**
+   - Show photo, time, location, altitude and coordinates.
+   - Show taxonomy block (if available).
+   - Show encyclopedia section:
+     - biology for plants and animals,
+     - geology for landscapes.
+   - Show user feeling text and (later) an AI summary.
+
+3. **Map and profile (conceptual)**
+   - For the first Streamlit demo, only a very light version may be implemented:
+     - browse observations by country,
+     - display summary counts on a simple profile section.
+   - The detailed country pages and badges are fully defined in Figma and can be
+     added later.
+
+---
+
+## 5. Future AI integration (not implemented yet)
+
+Planned future extensions:
+
+1. **Vision → species recognition**
+   - Take an image from camera or smart glasses.
+   - Use a vision model to suggest candidate species.
+   - Fill in taxonomy and part of the encyclopedia entry automatically.
+
+2. **LLM-generated encyclopedia text**
+   - Use an LLM (e.g., via an API) to:
+     - generate short descriptions for `EncyclopediaEntry` or `GeologyInfo`,
+     - summarize user feelings into one or two sentences.
+
+3. **Safety and offline packs**
+   - Pre-download “safety packs” for certain regions:
+     - poisonous plants / animals,
+     - terrain hazards and weather warnings.
+
+4. **Smart-glasses integration**
+   - Replace manual photo upload with a camera stream from smart glasses.
+   - Voice interface for adding feelings and asking follow-up questions.
+
+These ideas are documented here to show the direction of the project,
+even though the current repository focuses on a small, clear, local demo.
+
+---
+
+## 6. Summary
+
+- Figma captures the **UX vision** and detailed mobile UI.  
+- Python data classes capture the **domain model**: observations, taxonomy, encyclopedia, places and badges.  
+- Streamlit provides a **simple, runnable demo** that proves the concept and can be extended later.
+
+Together, they form a student project that is:
+- small enough to run locally,
+- but rich enough to discuss design, data modelling and future AI integration in a portfolio or interview.
