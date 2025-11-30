@@ -7,15 +7,18 @@ import sys
 
 import streamlit as st
 
-# --- make project root importable ---
+
 ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
+
     
 from backend.models import Observation, observation_from_dict
 #from backend.models import Observation, Taxonomy, EncyclopediaEntry, GeologyInfo
 
-DATA_PATH = Path(__file__).parent / "demo_data.json"
+DATA_PATH = ROOT_DIR / "backend" / "demo_data.json"
+
+#DATA_PATH = Path(__file__).parent / "demo_data.json"
 
 
 def load_observations() -> List[Observation]:
