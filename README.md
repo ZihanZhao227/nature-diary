@@ -52,6 +52,12 @@ small gallery:
 - left side: filter + list of observations
 - right side: detail view with image, location, time and basic metadata
 
+## Design prototype
+
+The full mobile UI/UX is designed in Figma.
+
+- See `design/figma-link.md` for the prototype link and design notes.
+
 ---
 
 ## 2. Features (current demo)
