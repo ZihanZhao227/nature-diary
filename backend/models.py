@@ -1,51 +1,51 @@
 from dataclasses import dataclass
-from typing import List, Optional, Literal
+from typing import Optional, Literal
 from datetime import datetime
+
 
 ObservationType = Literal["plant", "animal", "landscape"]
 
-@dataclass
-class Taxonomy:
-    kingdom: str
-    phylum: str
-    class_name: str
-    order: str
-    family: str
-    genus: str
-    species: str
-
-@dataclass
-class EncyclopediaEntry:
-    native_range: str
-    habitat: str
-    edibility: str
-    human_uses: List[str]
-    ecology: str
-
-@dataclass
-class GeologyInfo:
-    landform_type: str
-    formation_process: str
-    range_region: str
-    climate: str
 
 @dataclass
 class Observation:
+    """
+    Core domain object used in the demo.
+    Represents one recorded plant / animal / landscape.
+    """
     id: str
     title_cn: str
     title_en: str
     obs_type: ObservationType
-    image_path: str          # 对应 docs 或本地静态图
+
+    image_url: str
     country: str
     location: str
+
     latitude: float
     longitude: float
     altitude_m: Optional[int]
     datetime: datetime
 
-    taxonomy: Optional[Taxonomy] = None
-    encyclopedia: Optional[EncyclopediaEntry] = None
-    geology: Optional[GeologyInfo] = None
-
     user_feeling: Optional[str] = None
-    ai_summary: Optional[str] = None
+
+
+def observation_from_dict(data: dict) -> Observation:
+    """
+    Helper to convert a JSON dict into an Observation instance.
+    """
+    dt = datetime.fromisoformat(data["datetime"])
+
+    return Observation(
+        id=data["id"],
+        title_cn=data["title_cn"],
+        title_en=data["title_en"],
+        obs_type=data["obs_type"],
+        image_url=data["image_url"],
+        country=data["country"],
+        location=data["location"],
+        latitude=data["latitude"],
+        longitude=data["longitude"],
+        altitude_m=data.get("altitude_m"),
+        datetime=dt,
+        user_feeling=data.get("user_feeling"),
+    )
