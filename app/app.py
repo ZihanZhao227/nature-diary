@@ -108,12 +108,48 @@ def main():
         else:
             st.caption("No note recorded yet.")
 
-        st.markdown("### Taxonomy & encyclopedia (future work)")
-        st.caption(
-            "In the full version, this section will show kingdom → species, "
-            "native range, habitat, uses, ecology or geology. "
-            "For now it is only documented in the architecture doc."
-        )
+        if current.obs_type in ("plant", "animal"):
+            st.markdown("### Taxonomy")
+            if current.taxonomy:
+                tax = current.taxonomy
+                st.markdown(
+                    f"- Kingdom: *{tax.kingdom}*  \n"
+                    f"- Phylum: *{tax.phylum}*  \n"
+                    f"- Class: *{tax.class_name}*  \n"
+                    f"- Order: *{tax.order}*  \n"
+                    f"- Family: *{tax.family}*  \n"
+                    f"- Genus: *{tax.genus}*  \n"
+                    f"- Species: *{tax.species}*"
+                )
+            else:
+                st.caption("No taxonomy info yet for this observation.")
+
+            st.markdown("### Encyclopedia")
+            if current.encyclopedia:
+                enc = current.encyclopedia
+                st.write(enc.summary)
+                st.markdown(
+                    f"**Native range:** {enc.native_range}  \n"
+                    f"**Uses:** {enc.uses}  \n"
+                    f"**Edible:** {'Yes' if enc.edible else 'No'}  \n"
+                    f"**Ecology:** {enc.ecology}"
+                )
+            else:
+                st.caption("No encyclopedia entry yet for this species.")
+
+        elif current.obs_type == "landscape":
+            st.markdown("### Geology & landscape")
+            if current.geology:
+                geo = current.geology
+                st.markdown(
+                    f"**Formation type:** {geo.formation_type}  \n"
+                    f"**Mountain range:** {geo.mountain_range or '—'}  \n"
+                    f"**Geological age:** {geo.age}  \n"
+                    f"**Process:** {geo.process}"
+                )
+            else:
+                st.caption("No geology information yet for this landscape.")
+
 
 
 if __name__ == "__main__":
