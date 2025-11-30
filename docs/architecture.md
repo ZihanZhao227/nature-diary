@@ -369,11 +369,5 @@ observations, taxonomy, encyclopedia biology, geology, places and badges.
    - loads structured data,
    - renders a gallery and detail view,
    - and can be extended towards the Figma vision.
-This combination makes Nature Diary:
-- small enough to clone and run locally in a few minutes,
-- but rich enough to discuss as a serious design + data-modelling + AI-ready project
-in a portfolio or an interview.
-```text
-::contentReference[oaicite:0]{index=0}
-```
+
 ---
