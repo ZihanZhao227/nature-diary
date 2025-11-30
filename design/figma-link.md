@@ -2,44 +2,43 @@
 
 Main design file for the **Nature Diary · Personal Nature Encyclopedia** app.
 
-Figma link:  
+**Figma link**  
 https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?node-id=0-1&p=f&t=8IOaLM3cfMjlWU1F-0
-
 
 ---
 
 ## What this file contains
 
-The Figma file defines a mobile-first UI for a nature diary app.  
+The Figma file defines a mobile-first UI for a nature diary application.  
 Key screens and flows:
 
-1. **图鉴 · Gallery (Home)**
+1. **Gallery (Home)**
    - Card grid of observations (plants, animals, landscapes)
-   - Filters: 全部 / 按时间 / 植物 / 动物 / 景观
-   - Search bar by name / location / species
-   - Floating “+ 新记录” button to add a new observation
+   - Filters: all / by time / plants / animals / landscapes
+   - Search bar by name, location, or species
+   - Floating “+ New record” button to add a new observation
 
-2. **地图 · Map**
-   - Two modes:  
-     - `我的足迹` – countries where the user has created observations  
-     - `探索目的地` – recommended countries / parks / classic trails
-   - Country explore pages (e.g. 美国, 加拿大, 日本, 中国):
-     - Hero photo + subtitle
-     - Sections for 国家公园 / 热门自然景点 and 经典徒步路线
+2. **Map**
+   - Two modes:
+     - *My footprints* – countries where the user has created observations
+     - *Explore destinations* – recommended countries, national parks, and classic hiking trails
+   - Country explore pages (e.g. USA, Canada, Japan, China):
+     - Hero photo and subtitle
+     - Sections for national parks / popular natural spots and classic trails
 
-3. **我的 · Profile**
+3. **Profile**
    - User card with avatar and short bio
-   - Stats: 观察总数、物种数量、国家数量
-   - Badges row (高海拔探索者, 记录 50 种植物, 第一次国家公园, 跨越 5 个国家)
-   - Settings entry (language, data export, backup, etc.)
+   - Stats: total observations, number of species, number of countries
+   - Badge row (high-altitude explorer, 50 plant species, first national park, 5+ countries)
+   - Settings entries (language, data export, backup, etc.)
 
 4. **Detail pages (concept)**
-   - Observation detail: photo, time, location, altitude,
-     and space reserved for:
-     - taxonomy (界 / 门 / 纲 / 目 / 科 / 属 / 种)
-     - encyclopedia info for species or geology for landscapes
-   - Country / place detail: hero image, description,
-     list of parks or trails.
+   - Observation detail:
+     - Photo, time, location, altitude, coordinates
+     - Space reserved for taxonomy (kingdom → species)
+     - Space reserved for biological or geological encyclopedia text
+   - Country / place detail:
+     - Hero image, description, list of parks or trails
 
 ---
 
