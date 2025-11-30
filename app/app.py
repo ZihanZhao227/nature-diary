@@ -91,7 +91,8 @@ def main():
     with detail_col:
         st.subheader(f"{current.title_cn} / {current.title_en}")
 
-        st.image(current.image_url, use_column_width=True)
+        st.image(current.image_url, use_container_width=True)
+
 
         st.markdown(
             f"**Type:** {current.obs_type.capitalize()}  \n"
