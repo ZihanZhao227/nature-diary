@@ -1,0 +1,44 @@
+[
+  {
+    "id": "obs-1",
+    "title_cn": "日本枫树",
+    "title_en": "Japanese Maple",
+    "obs_type": "plant",
+    "image_url": "https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg",
+    "country": "Japan",
+    "location": "Kyoto",
+    "latitude": 35.0116,
+    "longitude": 135.7681,
+    "altitude_m": 180,
+    "datetime": "2025-10-15T14:30:00",
+    "user_feeling": "First time seeing autumn colors in Kyoto with friends."
+  },
+  {
+    "id": "obs-2",
+    "title_cn": "森林蕨类",
+    "title_en": "Forest Fern",
+    "obs_type": "plant",
+    "image_url": "https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg",
+    "country": "New Zealand",
+    "location": "Fiordland National Park",
+    "latitude": -45.417,
+    "longitude": 167.718,
+    "altitude_m": 250,
+    "datetime": "2025-06-18T10:15:00",
+    "user_feeling": "Cool, damp forest with deep green ferns everywhere."
+  },
+  {
+    "id": "obs-3",
+    "title_cn": "雪山全景",
+    "title_en": "Mountain Range",
+    "obs_type": "landscape",
+    "image_url": "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg",
+    "country": "Switzerland",
+    "location": "Swiss Alps",
+    "latitude": 46.577,
+    "longitude": 8.158,
+    "altitude_m": 2100,
+    "datetime": "2025-09-03T08:45:00",
+    "user_feeling": "Cold air, long hike, but the view over the clouds was worth it."
+  }
+]
