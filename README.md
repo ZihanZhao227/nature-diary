@@ -24,6 +24,34 @@ This repository contains:
 - a small **Python data model** for observations and taxonomy,
 - and a **Streamlit demo** that shows a gallery + detail view.
 
+## Quickstart – Run the Streamlit demo
+
+This repository includes a minimal Streamlit demo that shows how the data model
+projects into a simple UI.
+
+```bash
+# 1. Clone and enter the project
+git clone https://github.com/ZihanZhao227/nature-diary.git
+cd nature-diary
+
+# 2. (Optional but recommended) create a virtual environment
+python -m venv .venv
+source .venv/bin/activate  # on Windows: .venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Run the Streamlit app
+streamlit run app/app.py
+```
+Then open http://localhost:8501 in your browser.
+
+The demo reads sample observations from backend/demo_data.json and renders a
+small gallery:
+
+- left side: filter + list of observations
+- right side: detail view with image, location, time and basic metadata
+
 ---
 
 ## 2. Features (current demo)
