@@ -99,6 +99,7 @@ Key screens:
 ![Gallery](design/home.png)
 ![Map](design/map.png)
 ![Profile](design/profile.png)
+![Profile](design/setting.png)
 
 ---
 
