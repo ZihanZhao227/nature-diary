@@ -11,7 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -19,8 +21,13 @@
       background: #f8fafc;
       line-height: 1.6;
     }
-    a { color: #0f766e; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a {
+      color: #0f766e;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
     header {
       background: radial-gradient(circle at top left, #0f766e 0, #0f172a 45%, #020617 100%);
       color: white;
@@ -56,7 +63,9 @@
       .hero {
         grid-template-columns: minmax(0, 1fr);
       }
-      header { padding-bottom: 40px; }
+      header {
+        padding-bottom: 40px;
+      }
     }
     .hero-title {
       font-size: 2.4rem;
@@ -140,7 +149,6 @@
       font-size: 0.72rem;
       color: #9ca3af;
     }
-
     main {
       max-width: 1040px;
       margin: 0 auto;
@@ -167,7 +175,9 @@
       gap: 20px;
     }
     @media (max-width: 800px) {
-      .section-grid { grid-template-columns: minmax(0, 1fr); }
+      .section-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
     .card {
       background: white;
@@ -207,7 +217,9 @@
       gap: 16px;
     }
     @media (max-width: 900px) {
-      .three-cols { grid-template-columns: minmax(0, 1fr); }
+      .three-cols {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
     .tagline {
       font-size: 0.9rem;
@@ -223,11 +235,13 @@
       border: 1px solid #e2e8f0;
       background: #020617;
     }
-    .embed-container iframe, 
+    .embed-container iframe,
     .embed-container video {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       border: 0;
     }
     footer {
@@ -255,17 +269,23 @@
     <div class="hero">
       <div>
         <div class="badge">Hands-free nature collecting</div>
-        <h1 class="hero-title">A smart-glasses “nature encyclopedia” for serious hikers and collectors.</h1>
+        <h1 class="hero-title">
+          A smart-glasses “nature encyclopedia” for serious hikers and collectors.
+        </h1>
         <p class="hero-sub">
           Nature Diary is a lightweight smart-glasses + mobile app + cloud system that lets outdoor
           enthusiasts capture plants, animals, rocks, and landscapes with a button or voice trigger and
           quietly build a private, AI-powered nature log.
         </p>
         <div class="hero-buttons">
-          <a class="btn btn-primary" href="https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?t=TxcNZMf6HcEZfYE3-20&fullscreen=1" target="_blank">
+          <a class="btn btn-primary"
+             href="https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?t=TxcNZMf6HcEZfYE3-20&fullscreen=1"
+             target="_blank">
             View Figma prototype
           </a>
-          <a class="btn btn-secondary" href="https://github.com/ZihanZhao227/nature-diary" target="_blank">
+          <a class="btn btn-secondary"
+             href="https://github.com/ZihanZhao227/nature-diary"
+             target="_blank">
             View GitHub project
           </a>
         </div>
@@ -276,10 +296,18 @@
 
       <div class="hero-card">
         <h3>Quick snapshot</h3>
-        <p><strong>Core users:</strong> serious hikers, backpackers, birders and outdoor travelers with a collector mindset.</p>
-        <p><strong>Key idea:</strong> free your hands from phones and heavy cameras; let glasses capture, cloud identify, app curate.</p>
-        <p><strong>Why now:</strong> outdoor recreation and nature photography are booming, while privacy concerns around wearables keep growing.</p>
-        <small>Currently in concept + prototype stage, seeking mentors for product architecture and business model.</small>
+        <p>
+          <strong>Core users:</strong> serious hikers, backpackers, birders and outdoor travelers with a collector mindset.
+        </p>
+        <p>
+          <strong>Key idea:</strong> free your hands from phones and heavy cameras; let glasses capture, cloud identify, app curate.
+        </p>
+        <p>
+          <strong>Why now:</strong> outdoor recreation and nature photography are booming, while privacy concerns around wearables keep growing.
+        </p>
+        <small>
+          Currently in concept + prototype stage, seeking mentors for product architecture and business model.
+        </small>
       </div>
     </div>
   </header>
@@ -321,51 +349,68 @@
       </div>
     </section>
 
-    <!-- Demo / Figma -->
-    
+    <!-- Prototype / Figma + video -->
     <section id="prototype">
-  <div class="section-label">Prototype</div>
-  <h2 class="section-title">App prototype & demo</h2>
-  <p class="tagline">
-    The Figma prototype shows the core capture → identify → collection flow.
-    A short screen-recorded demo video walks through the first-time user
-    experience so you can “feel” the product without installing anything.
-  </p>
-
-  <div class="section-grid">
-    <!-- 左侧：Figma 交互原型 -->
-    <div class="card">
-      <h3>Interactive Figma flow</h3>
-      <div class="embed-container">
-        <iframe
-          src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <p style="font-size:0.8rem; margin-top:8px; color:#64748b;">
-        Used to test screens and flows with early users: capture, species card,
-        collection view, and joining nature challenges.
+      <div class="section-label">Prototype</div>
+      <h2 class="section-title">App prototype & demo</h2>
+      <p class="tagline">
+        The Figma prototype shows the core capture → identify → collection flow.
+        A short screen-recorded demo video walks through the first-time user
+        experience so you can “feel” the product without installing anything.
       </p>
-    </div>
 
-    <!-- 右侧：App demo 视频 -->
-    <div class="card">
-      <h3>App walk-through video</h3>
+      <div class="section-grid">
+        <!-- 左侧：Figma 交互原型 -->
+        <div class="card">
+          <h3>Interactive Figma flow</h3>
+          <div class="embed-container">
+            <iframe
+              src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <p style="font-size:0.8rem; margin-top:8px; color:#64748b;">
+            Used to test screens and flows with early users: capture, species card,
+            collection view, and joining nature challenges.
+          </p>
+        </div>
+
+        <!-- 右侧：App demo 视频 -->
+        <div class="card">
+          <h3>App walk-through video</h3>
+          <div class="embed-container">
+            <video controls>
+              <!-- 把 src 换成你实际的视频路径 -->
+              <source src="videos/app-demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p style="font-size:0.8rem; margin-top:8px; color:#64748b;">
+            A 60–90 second screen recording showing how a hiker captures a plant,
+            gets an ID, and saves it into their Nature Diary collection.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event concept video -->
+    <section id="event-video">
+      <div class="section-label">Concept film</div>
+      <h2 class="section-title">“Nature Quest” outdoor challenge concept</h2>
+      <p class="tagline">
+        This one-minute concept reel illustrates the signature Nature Quest event:
+        teams of hikers using Nature Diary glasses to race through a park, capturing
+        species, unlocking challenges, and turning nature collecting into a festival.
+        It is meant to make the business and event model tangible.
+      </p>
       <div class="embed-container">
         <video controls>
-          <!-- 把 src 换成你实际的视频路径 -->
-          <source src="videos/app-demo.mp4" type="video/mp4" />
+          <!-- 同样，把 src 换成你真正的视频路径 -->
+          <source src="videos/nature-quest-concept.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
-      <p style="font-size:0.8rem; margin-top:8px; color:#64748b;">
-        A 60–90 second screen recording showing how a hiker captures a plant,
-        gets an ID, and saves it into their Nature Diary collection.
-      </p>
-    </div>
-  </div>
-</section>
-
+    </section>
 
     <!-- Architecture -->
     <section id="architecture">
