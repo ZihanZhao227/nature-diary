@@ -322,21 +322,50 @@
     </section>
 
     <!-- Demo / Figma -->
-    <section>
-      <div class="section-label">Prototype</div>
-      <h2 class="section-title">Figma app prototype</h2>
-      <p class="tagline">
-        Below is an interactive mockup of the Nature Diary mobile app: from first capture to viewing your
-        collection and joining nature challenges. For SVBIG, this is the fastest way to “feel” the product.
-      </p>
+    
+    <section id="prototype">
+  <div class="section-label">Prototype</div>
+  <h2 class="section-title">App prototype & demo</h2>
+  <p class="tagline">
+    The Figma prototype shows the core capture → identify → collection flow.
+    A short screen-recorded demo video walks through the first-time user
+    experience so you can “feel” the product without installing anything.
+  </p>
+
+  <div class="section-grid">
+    <!-- 左侧：Figma 交互原型 -->
+    <div class="card">
+      <h3>Interactive Figma flow</h3>
       <div class="embed-container">
-        <!-- TODO: replace src with your Figma embed link (Share → Embed → copy iframe src) -->
         <iframe
           src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design"
           allowfullscreen>
         </iframe>
       </div>
-    </section>
+      <p style="font-size:0.8rem; margin-top:8px; color:#64748b;">
+        Used to test screens and flows with early users: capture, species card,
+        collection view, and joining nature challenges.
+      </p>
+    </div>
+
+    <!-- 右侧：App demo 视频 -->
+    <div class="card">
+      <h3>App walk-through video</h3>
+      <div class="embed-container">
+        <video controls>
+          <!-- 把 src 换成你实际的视频路径 -->
+          <source src="videos/app-demo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p style="font-size:0.8rem; margin-top:8px; color:#64748b;">
+        A 60–90 second screen recording showing how a hiker captures a plant,
+        gets an ID, and saves it into their Nature Diary collection.
+      </p>
+    </div>
+  </div>
+</section>
+
 
     <!-- Architecture -->
     <section id="architecture">
