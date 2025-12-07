@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nature Diary – Hands-Free Nature Collecting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="Nature Diary is a lightweight smart-glasses + mobile app system that helps outdoor enthusiasts quietly collect nature encounters into a private, AI-powered nature encyclopedia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #0f172a;
+      background: #f8fafc;
+      line-height: 1.6;
+    }
+    a { color: #0f766e; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      background: radial-gradient(circle at top left, #0f766e 0, #0f172a 45%, #020617 100%);
+      color: white;
+      padding: 32px 16px 64px;
+    }
+    .nav {
+      max-width: 1040px;
+      margin: 0 auto 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      margin-left: 16px;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .hero {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 32px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header { padding-bottom: 40px; }
+    }
+    .hero-title {
+      font-size: 2.4rem;
+      line-height: 1.1;
+      margin: 0 0 16px;
+    }
+    .hero-sub {
+      font-size: 1rem;
+      max-width: 520px;
+      opacity: 0.95;
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.1);
+      color: #a5f3fc;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .btn {
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: #22c55e;
+      color: #052e16;
+      box-shadow: 0 12px 24px rgba(22, 163, 74, 0.35);
+    }
+    .btn-primary:hover {
+      background: #16a34a;
+    }
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.7);
+      color: #e2e8f0;
+      border-color: rgba(148, 163, 184, 0.5);
+    }
+    .hero-meta {
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+    .hero-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      padding: 18px 18px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+    }
+    .hero-card h3 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #a5f3fc;
+    }
+    .hero-card p {
+      margin: 0 0 4px;
+      font-size: 0.78rem;
+      color: #e5e7eb;
+      opacity: 0.92;
+    }
+    .hero-card small {
+      font-size: 0.72rem;
+      color: #9ca3af;
+    }
+
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 40px 16px 64px;
+    }
+    section {
+      margin-bottom: 56px;
+    }
+    .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      margin: 0 0 16px;
+      color: #0f172a;
+    }
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: 800px) {
+      .section-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+      font-size: 0.9rem;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .pill {
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #ecfeff;
+      color: #0f766e;
+      border: 1px solid #a5f3fc;
+    }
+    ul {
+      padding-left: 18px;
+      margin: 6px 0;
+      font-size: 0.9rem;
+    }
+    .three-cols {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .three-cols { grid-template-columns: minmax(0, 1fr); }
+    }
+    .tagline {
+      font-size: 0.9rem;
+      max-width: 640px;
+      color: #475569;
+    }
+    .embed-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      background: #020617;
+    }
+    .embed-container iframe, 
+    .embed-container video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    footer {
+      border-top: 1px solid #e2e8f0;
+      padding: 20px 16px 32px;
+      font-size: 0.8rem;
+      color: #64748b;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header id="top">
+    <div class="nav">
+      <div class="logo">NATURE DIARY</div>
+      <div class="nav-links">
+        <a href="#product">Product</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#market">Market</a>
+        <a href="#events">Events</a>
+        <a href="#founder">Founder</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div>
+        <div class="badge">Hands-free nature collecting</div>
+        <h1 class="hero-title">A smart-glasses “nature encyclopedia” for serious hikers and collectors.</h1>
+        <p class="hero-sub">
+          Nature Diary is a lightweight smart-glasses + mobile app + cloud system that lets outdoor
+          enthusiasts capture plants, animals, rocks, and landscapes with a button or voice trigger and
+          quietly build a private, AI-powered nature log.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?t=TxcNZMf6HcEZfYE3-20&fullscreen=1" target="_blank">
+            View Figma prototype
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/ZihanZhao227/nature-diary" target="_blank">
+            View GitHub project
+          </a>
+        </div>
+        <div class="hero-meta">
+          Early-stage student venture • Privacy-by-design • Built for outdoor use, not casual social media
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Quick snapshot</h3>
+        <p><strong>Core users:</strong> serious hikers, backpackers, birders and outdoor travelers with a collector mindset.</p>
+        <p><strong>Key idea:</strong> free your hands from phones and heavy cameras; let glasses capture, cloud identify, app curate.</p>
+        <p><strong>Why now:</strong> outdoor recreation and nature photography are booming, while privacy concerns around wearables keep growing.</p>
+        <small>Currently in concept + prototype stage, seeking mentors for product architecture and business model.</small>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Product section -->
+    <section id="product">
+      <div class="section-label">Product</div>
+      <h2 class="section-title">Problem & value proposition</h2>
+      <p class="tagline">
+        Many outdoor enthusiasts love photographing landscapes and wildlife but hate constantly pulling out a phone
+        or carrying a heavy camera, so they miss spontaneous moments or feel pulled out of the experience.
+        Nature Diary turns your glasses into a quiet “capture layer” and your phone into a personal nature encyclopedia.
+      </p>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>What Nature Diary does</h3>
+          <ul>
+            <li>Glasses capture scenes when you press a physical button or say a simple voice cue.</li>
+            <li>Images are sent to the phone app and cloud backend for identification.</li>
+            <li>Computer vision models return species names, taxonomy, distribution, risk to humans, and more.</li>
+            <li>Each capture becomes a card in your private collection, with optional voice notes and emotions.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Why it is different</h3>
+          <ul>
+            <li><strong>Privacy-by-design:</strong> capture is always opt-in; faces and bystanders can be blurred by default.</li>
+            <li><strong>Outdoor-first hardware:</strong> sunglasses-like form factor, tuned camera, rugged and easy to clean.</li>
+            <li><strong>Collector mindset:</strong> focus on quietly “collecting” nature, not posting to social media.</li>
+          </ul>
+          <div class="pill-row">
+            <span class="pill">Smart glasses</span>
+            <span class="pill">Computer vision</span>
+            <span class="pill">Nature collecting</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Demo / Figma -->
+    <section>
+      <div class="section-label">Prototype</div>
+      <h2 class="section-title">Figma app prototype</h2>
+      <p class="tagline">
+        Below is an interactive mockup of the Nature Diary mobile app: from first capture to viewing your
+        collection and joining nature challenges. For SVBIG, this is the fastest way to “feel” the product.
+      </p>
+      <div class="embed-container">
+        <!-- TODO: replace src with your Figma embed link (Share → Embed → copy iframe src) -->
+        <iframe
+          src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section id="architecture">
+      <div class="section-label">Architecture</div>
+      <h2 class="section-title">Glasses → App → Cloud: how it fits together</h2>
+      <div class="three-cols">
+        <div class="card">
+          <h3>1. Glasses</h3>
+          <ul>
+            <li>Physical capture button + wake word voice trigger.</li>
+            <li>Camera tuned to human-eye perspective for better memory recall.</li>
+            <li>On-device pre-processing: basic encryption and privacy filters.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>2. Mobile app</h3>
+          <ul>
+            <li>Receives captures, uploads to cloud, shows status.</li>
+            <li>Displays species cards, maps, and timeline of trips.</li>
+            <li>Stores optional voice notes and emotions as “memory snapshots”.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>3. Cloud & models</h3>
+          <ul>
+            <li>Fine-tuned open-source vision models (e.g., ViT-style) for species identification.</li>
+            <li>Privacy workflows: opt-in capture, face blurring, sensitive-content flags.</li>
+            <li>Future: community datasets and “Nature Quest” challenge logic.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Market / users -->
+    <section id="market">
+      <div class="section-label">Market & users</div>
+      <h2 class="section-title">Who this is for</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3>Target segment</h3>
+          <ul>
+            <li>Serious hikers, backpackers, and outdoor travelers who already spend on premium gear (Arc’teryx, Patagonia, etc.).</li>
+            <li>Birders and nature “collectors” who enjoy logging species and trips.</li>
+            <li>Early adopters in university outdoor clubs, youth programs, and summer camps.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Market insight</h3>
+          <ul>
+            <li>Outdoor recreation participation in the U.S. is above 170M people and growing.</li>
+            <li>Birdwatching and nature travel account for tens of billions of dollars in spend.</li>
+            <li>Most photos are now captured on phones, but many users dislike phones on the trail.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Business & events -->
+    <section id="events">
+      <div class="section-label">Business & events</div>
+      <h2 class="section-title">From smart glasses to “Nature Quest” festivals</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3>Business model</h3>
+          <ul>
+            <li><strong>Hardware:</strong> Nature Diary smart glasses (approx. USD 200–400) as the primary entry point.</li>
+            <li><strong>Freemium app:</strong> free basic identification and limited storage; Pro tier with unlimited storage and richer data.</li>
+            <li><strong>Events:</strong> curated “Nature Quest” outdoor challenges where glasses are required to play, generating ticket, sponsorship, and streaming-side revenue.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Signature “Nature Quest” idea</h3>
+          <ul>
+            <li>Seasonal scavenger-hunt style events in parks: teams race to find and capture specific species and landscapes.</li>
+            <li>Core users qualify through in-app collections; volunteers earn free access by helping run the event.</li>
+            <li>Designed to turn Nature Diary from a tool into a cultural moment for outdoor explorers.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status & next steps -->
+    <section>
+      <div class="section-label">Status</div>
+      <h2 class="section-title">Current status & what I am looking for</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3>Today</h3>
+          <ul>
+            <li>Clickable Figma prototype for the mobile app.</li>
+            <li>Initial architecture defined after discussions with HCI and ML professors.</li>
+            <li>GitHub repo started; next step is a phone + cloud demo that identifies leaves.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What I need help with</h3>
+          <ul>
+            <li>Pressure-testing the product and technical architecture.</li>
+            <li>Making the hardware + event-driven business model realistic.</li>
+            <li>Scoping an MVP and planning the first small “Nature Quest” pilot with sustainable costs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Founder -->
+    <section id="founder">
+      <div class="section-label">Founder</div>
+      <h2 class="section-title">About me</h2>
+      <div class="section-grid">
+        <div>
+          <p class="tagline">
+            I am Zihan Zhao (Hannah), an undergraduate at Purdue University double-majoring in Computer Science
+            (Machine Intelligence track) and Artificial Intelligence, after first studying marketing and business analytics.
+            Before transferring into CS/AI, I worked in advertising and at China Literature’s WebNovel platform, where I
+            learned how stories and IP shape culture.
+          </p>
+          <p class="tagline">
+            Nature Diary is where my interests meet: nature, computer vision, and building experiences that feel emotionally
+            meaningful, not just “smart.” I am treating this as a serious long-term project and am very open to tough
+            feedback from mentors and operators.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Links & contact</h3>
+          <ul>
+            <li>GitHub: <a href="https://github.com/ZihanZhao227/nature-diary" target="_blank">nature-diary</a></li>
+            <li>Figma prototype: <a href="https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?t=TxcNZMf6HcEZfYE3-20&fullscreen=1" target="_blank">Nature Diary App</a></li>
+            <li>Email: <a href="mailto:zhao1370@purdue.edu">zhao1370@purdue.edu</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Nature Diary – early-stage student venture by Zihan Zhao • Built for SVBIG mentorship application
+  </footer>
+</body>
+</html>
