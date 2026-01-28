@@ -1,155 +1,215 @@
-# Nature Diary · Personal Nature Encyclopedia
+# Nature Diary · Personal Nature Encyclopedia (Full-stack + Distributed Skeleton)
 
-A student project that turns everyday outdoor observations into a structured
-**nature encyclopedia** – with species taxonomy, rich context, and a visual gallery.
-Designed for future integration with smart glasses + AI vision.
+Nature Diary is a prototype that turns everyday outdoor observations into a structured **nature encyclopedia**.
+It is designed to scale from a simple demo into a production-style system with **clean APIs**, **async processing**, and **reproducible deployment**.
 
-> Figma for the full mobile UI design, Python + Streamlit for the runnable demo.
+**What’s new in this version**
+- ✅ Full-stack runnable demo (Streamlit UI + FastAPI + Postgres)
+- ✅ Distributed skeleton (Redis queue + background worker)
+- ✅ Async “CV inference” pipeline: entries transition **PENDING → PROCESSED** with `cv_result`
+- ✅ Docker Compose for one-command local deployment
+- 🎨 Figma mobile UI/UX prototype for the product vision
+
+> Figma: https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?node-id=0-1&p=f&t=RODoxm7P039nnljo-0&fullscreen=1
 
 ---
 
-## 1. Project Overview
+## 1) Project Overview
 
-Nature Diary is a concept app for hikers, travelers and nature lovers.
-You take a photo of a plant, animal or landscape, add a short voice note,
-and the system turns it into a structured entry:
+Nature Diary targets hikers, travelers, and nature lovers:
+you record a plant/animal/landscape, attach notes, and the system stores it as a structured entry.
+This repo focuses on the **engineering backbone** needed to evolve toward “smart glasses + AI vision” later:
 
-- for organisms: full taxonomy (kingdom → species) + encyclopedia description,
-- for landscapes: geology & formation,
-- all tied to time, GPS location and your personal memory of that moment.
+- **Streamlit UI** for quick product iteration and demo
+- **FastAPI service** that exposes clean REST endpoints
+- **Postgres** as the source-of-truth relational store
+- **Redis** used for:
+  - high-concurrency cache (hot reads)
+  - message queue (job dispatch)
+- **Worker** that consumes jobs asynchronously and writes results back to Postgres
 
-This repository contains:
+---
 
-- the **design** (Figma link + screenshots),
-- a small **Python data model** for observations and taxonomy,
-- and a **Streamlit demo** that shows a gallery + detail view.
+## 2) Architecture (minimal distributed skeleton)
 
-## Quickstart – Run the Streamlit demo
+```text
+Streamlit UI  ->  FastAPI  -> Postgres
+                   |  |
+                   |  +-> Redis cache (hot reads)
+                   |
+                   +-> Redis queue (nd:jobs) -> Worker -> Postgres (cv_result/status)
+```
 
-This repository includes a minimal Streamlit demo that shows how the data model
-projects into a simple UI.
+Why this design:
+
+* heavy/variable-latency work (CV inference) is offloaded to a worker
+* API stays responsive under load; worker scales independently
+
+---
+
+## 3) Quickstart (recommended): Run with Docker Compose
+
+### Prerequisites
+
+* Docker Desktop installed and running
+
+### Start services
 
 ```bash
-# 1. Clone and enter the project
-git clone https://github.com/ZihanZhao227/nature-diary.git
+git clone [https://github.com/ZihanZhao227/nature-diary.git](https://github.com/ZihanZhao227/nature-diary.git)
 cd nature-diary
 
-# 2. (Optional but recommended) create a virtual environment
-python -m venv .venv
-source .venv/bin/activate  # on Windows: .venv\Scripts\activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Run the Streamlit app
-streamlit run app/app.py
+docker compose -f infra/docker-compose.yml up --build
 ```
-Then open http://localhost:8501 in your browser.
 
-The demo reads sample observations from backend/demo_data.json and renders a
-small gallery:
+### Open the app
 
-- left side: filter + list of observations
-- right side: detail view with image, location, time and basic metadata
+* Streamlit UI: [http://localhost:8501](http://localhost:8501)
+* API docs (if enabled): [http://localhost:8000/docs](http://localhost:8000/docs)
+* Health check: [http://localhost:8000/health](http://localhost:8000/health)
 
-## Design prototype
+Stop:
 
-The full mobile UI/UX is designed in Figma.
+```bash
+docker compose -f infra/docker-compose.yml down
+```
 
-- See `design/figma-link.md` for the prototype link and design notes.
+Reset DB (delete volumes):
 
----
-
-## 2. Features (current demo)
-
-- 📚 **Observation gallery** – card-based list, filter by time and type (plant / animal / landscape)
-- 🔍 **Detail page** – location, time, altitude, coordinates + placeholders for:
-  - taxonomy (kingdom / phylum / class / order / family / genus / species)
-  - encyclopedia info (native range, habitat, edibility, human uses, ecology)
-  - geology & formation for landscapes
-- 🗺️ **Explore by country** – sample country pages with national parks and classic trails
-- 👣 **My footprints** – shows countries “visited” in this demo and some of the user’s observations
-- 🏅 **Badges** – unlocked by visiting high-altitude areas or collecting enough species
-
-Planned (not yet implemented):
-
-- AI-powered species recognition from images
-- automatic generation of taxonomy + encyclopedia description using LLMs
-- integration with smart glasses as a “hands-free nature guide”
+```bash
+docker compose -f infra/docker-compose.yml down -v
+```
 
 ---
 
-## 3. Tech Stack
+## 4) Demo: Async processing (PENDING → PROCESSED)
 
-- **Language:** Python 3.11
-- **UI:** Streamlit
-- **Data:** JSON sample files
-- **Design:** Figma (mobile-first interface)
+This is the key “distributed system” proof:
+API enqueues a job → worker processes asynchronously → Postgres updated.
+
+### 4.1 Create an entry (enqueue a job)
+
+```bash
+curl -s -X POST "http://localhost:8000/v1/entries" \
+  -H "Content-Type: application/json" \
+  -d '{"kind":"plant","title":"Test Entry","notes":"hello"}' | python3 -m json.tool
+```
+
+Copy the returned `id`, then:
+
+### 4.2 Fetch it by id (may be PENDING at first, then PROCESSED)
+
+```bash
+ID=<paste-id-here>
+
+curl -s "http://localhost:8000/v1/entries/$ID" | python3 -m json.tool
+sleep 2
+curl -s "http://localhost:8000/v1/entries/$ID" | python3 -m json.tool
+```
+
+Expected result:
+
+* `status` becomes `PROCESSED`
+* `cv_result` contains `labels` and `confidence`
 
 ---
 
-## 4. Figma Design
+## 5) Features (current implementation)
 
-The full mobile UI is designed in Figma:
+* ✅ **Entry management** via REST APIs
 
-- [Figma file link](<https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?t=4xlKvkLD43aDZZUf-0>)
+  * create / list / get by id
+* ✅ **Favorites** (toggle favorite flag)
+* ✅ **Async CV pipeline** (distributed skeleton)
 
-Key screens:
+  * PENDING → PROCESSED
+  * `cv_result` persisted to Postgres
+* ✅ **Redis-based primitives**
 
-![Gallery](design/home.png)
-![Map](design/map.png)
-![Profile](design/profile.png)
-![Profile](design/setting.png)
+  * queue for background jobs
+  * cache for hot reads (where applicable)
+* ✅ **Reproducible deployment**
+
+  * one-command local startup via Docker Compose
+
+Planned next (roadmap):
+
+* Replace Redis queue with Kafka (or SQS) to match production patterns
+* Add real inference (open-source model forward pass) instead of stub results
+* Add device-to-cloud style “remote config” endpoints (to better match IoT workflows)
+* Terraform + Kubernetes manifests for cloud deployment
 
 ---
 
-## 5. Repository Structure
+## 6) Tech Stack
+
+* **Language:** Python 3.11
+* **UI:** Streamlit
+* **API:** FastAPI (Uvicorn)
+* **DB:** Postgres
+* **Queue/Cache:** Redis
+* **Distributed worker:** Python worker consuming Redis jobs
+* **Deployment:** Docker Compose (local)
+
+---
+
+## 7) Repository Structure (current)
 
 ```text
 .
-├── README.md
-├── requirements.txt
+├── infra/
+│   └── docker-compose.yml
+├── services/
+│   ├── api/
+│   │   ├── Dockerfile
+│   │   ├── requirements.txt
+│   │   └── app/
+│   │       ├── main.py
+│   │       ├── db.py
+│   │       ├── models.py
+│   │       └── schemas.py
+│   ├── worker/
+│   │   ├── Dockerfile
+│   │   ├── requirements.txt
+│   │   └── worker.py
+│   └── streamlit/
+│       ├── Dockerfile
+│       ├── requirements.txt
+│       └── app.py
 ├── design/
-│   ├── figma-link.md
 │   ├── home.png
 │   ├── map.png
-│   └── profile.png
-├── backend/
-│   ├── __init__.py
-│   ├── models.py
-│   └── demo_data.json
-├── app/
-│   └── app.py
+│   ├── profile.png
+│   └── setting.png
 └── docs/
     └── architecture.md
 ```
----
-## 6. How to run the demo
-```text
-# 1. Clone the repo
-git clone https://github.com/<your-username>/nature-diary.git
-cd nature-diary
 
-# 2. Create env and install deps
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-
-# 3. Run the Streamlit app
-streamlit run app/app.py
-
-```
-Then open the URL shown in the terminal (usually http://localhost:8501
-)
-to explore the Nature Diary demo.
+> If you still see legacy folders from the early prototype (e.g., `backend/` or old `app/`),
+> they are superseded by the `services/*` structure in this full-stack version.
 
 ---
-## 7. Future Work
 
-- Add real taxonomy & encyclopedia content for more species
-- Connect to vision + LLM APIs to auto-generate entries
-- Sync with mobile devices / smart glasses
-- Offline “safety pack” for hikers (hazardous species, weather alerts, etc.)
+## 8) Figma Design
 
+Figma prototype:
 
+* [https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?node-id=0-1&p=f&t=RODoxm7P039nnljo-0&fullscreen=1](https://www.figma.com/make/XF5F0VYicpI0H01BgWg7fI/Nature-Diary-App-Design?node-id=0-1&p=f&t=RODoxm7P039nnljo-0&fullscreen=1)
 
+Key screens (optional screenshots):
+
+* `design/home.png`
+* `design/map.png`
+* `design/profile.png`
+* `design/setting.png`
+
+---
+
+## 9) Notes for Interviews / Demos
+
+What to highlight:
+
+* Clean API boundary + Postgres persistence
+* Async job offloading (queue + worker) to keep API low-latency
+* Distributed skeleton that can scale horizontally (add more workers)
+* Reproducible infra (Compose now; k8s later)
