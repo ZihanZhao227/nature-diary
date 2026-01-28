@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: nature
+      POSTGRES_PASSWORD: nature
+      POSTGRES_DB: nature_diary
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  api:
+    build: ../services/api
+    environment:
+      DATABASE_URL: postgresql+psycopg://nature:nature@postgres:5432/nature_diary
+      REDIS_URL: redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+
+  worker:
+    build: ../services/worker
+    environment:
+      DATABASE_URL: postgresql+psycopg://nature:nature@postgres:5432/nature_diary
+      REDIS_URL: redis://redis:6379/0
+      QUEUE_NAME: nd:jobs
+    depends_on:
+      - postgres
+      - redis
+
+  streamlit:
+    build: ../services/streamlit
+    environment:
+      API_BASE_URL: http://api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+
