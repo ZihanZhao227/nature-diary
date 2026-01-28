@@ -205,11 +205,4 @@ Key screens (optional screenshots):
 
 ---
 
-## 9) Notes for Interviews / Demos
 
-What to highlight:
-
-* Clean API boundary + Postgres persistence
-* Async job offloading (queue + worker) to keep API low-latency
-* Distributed skeleton that can scale horizontally (add more workers)
-* Reproducible infra (Compose now; k8s later)
